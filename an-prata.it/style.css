@@ -3,10 +3,10 @@
 :root {
   --color-bg: #17171C;
   --color-bg-light: #101419;
-  --color-fg: #f2f2e9;
+  --color-fg: #1f1f1f;
 
-  --color-link-hover: #cca37a;
-  --color-link: #b1cc7a;
+  --color-link-hover: #383838;
+  --color-link: #1f1f1f;
 
   --font-family: "JetBrainsMono NF", monospace;
 }
@@ -18,8 +18,9 @@
 
 html,
 body {
+  background-color: #8EC5FC;
+  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
   overflow: hidden;
-  background: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-family);
   height: 100%;
@@ -44,7 +45,7 @@ header div#img {
 }
 
 header div#img img {
-  width: 32vw;
+  width: 50%;
 }
 
 main {
@@ -72,38 +73,6 @@ main #content {
 
 main #head {
   text-align: left;
-}
-
-main #links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-main #links section {
-  margin: 0 15px;
-}
-
-form {
-  font-size: 2.15vw;
-  white-space: nowrap;
-}
-
-form input {
-  width: 75%;
-  display: inline-block;
-  border: none;
-  background-color: var(--color-bg-light);
-  padding: 10px;
-  color: var(--color-fg);
-  font-family: var(--font-family);
-  font-size: 2vw;
-  border-radius: 8px;
-}
-
-form input:focus {
-  outline: none;
-
 }
 
 footer {

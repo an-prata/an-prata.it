@@ -18,156 +18,62 @@
 <body>
   <header>
     <div id="img">
-      <img src="image.gif" width="100%" height="auto" />
+      <img src="image.jpg" width="100%" height="auto" />
     </div>
   </header>
 
   <main>
     <div id="content">
-      <div id="head">
-        <form action="https://google.com/search">
-          <label for="q" autofocus> find -> </label>
-          <input type="text" name="q" autocomplete="off">
-        </form>
-        <div id="info">
-          <p id="weatherDesc">Loading...</p>
-          <p id="temp">Loading...</p>
-        </div>
-      </div>
+      <h1> an-prata.it </h1>
       <div id="links">
         <section>
-          <h3>social</h3>
           <ul>
-            <li><a href="https://www.reddit.com/">reddit</a></li>
-            <li><a href="https://gmail.com/">gmail</a></li>
-          </ul>
-        </section>
-        <section>
-          <h3>dev stuffs</h3>
-          <ul>
-            <li><a href="https://github.com">github</a></li>
-            <li><a href="https://stackoverflow.com/">stackoverflow</a></li>
-            <li><a href="https://aur.archlinux.org/">aur home</a></li>
-          </ul>
-        </section>
-        <section>
-          <h3>entertainment</h3>
-          <ul>
-            <li><a href="https://bandcamp.com">bandcamp</a></li>
-            <li><a href="https://youtube.com">youtube</a></li>
-            <li><a href="https://anilist.co/">anilist</a></li>
+            <li><a href="https://github.com/an-prata/">github</a></li>
+            <li><a href="https://github.com/an-prata/scrutiny">scrutiny</a></li>
+            <li><a href="https://github.com/an-prata/simplest-fetch">simplest-fetch</a></li>
+            <li><a href="https://github.com/an-prata/bin-scripts">bin-scripts</a></li>
           </ul>
         </section>
       </div>
     </div>
   </main>
   <script type="module">
-    // ----- CHANGE THESE VARIABLES
+    // hides all elements
+    document.querySelectorAll("*").forEach(el => el.style.opacity = 0);
 
-    // Do you want to show the weather?
-    const weather = true;
-    // Do you want animations?
-    const animated = true;
-
-    // Read the documentation for setting the weather API key
-    const apiKey = "7718498202b4cde5fdee98c81618401a";
-    const lat = 33.7701;
-    const lon = -118.1937;
-    const units = "imperial";
-
-    // ----- DON'T TOUCH ANYTHING BELOW THIS UNLESS YOU KNOW WHAT YOU'RE DOING
-
-    var weatherEl = document.getElementById("weatherDesc");
-    var tempEl = document.getElementById("temp");
-
-    if (weather) {
-      var apiLink =
-        "https://api.openweathermap.org/data/2.5/weather?lat=" +
-        lat +
-        "&lon=" +
-        lon +
-        "&units=" +
-        units +
-        "&appid=" +
-        apiKey;
-      console.log(apiLink);
-      // grabs json data from url, thanks https://stackoverflow.com/a/35970894
-      var getJSON = function (url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.responseType = "json";
-        xhr.onload = function () {
-          var status = xhr.status;
-          if (status === 200) {
-            callback(null, xhr.response);
-          } else {
-            callback(status, xhr.response);
-          }
-        };
-        xhr.send();
-      };
-
-      // gets city name from weather api
-      getJSON(apiLink, function (err, data) {
-        if (err !== null) {
-          weatherEl.innerText = "";
-          tempEl.innerText = "";
-        } else {
-          var city = data.name;
-          var temp = data.main.temp;
-          var hiTemp = data.main.temp_max;
-          var loTemp = data.main.temp_min;
-          var weatherDesc = data.weather[0].description;
-          weatherEl.innerHTML =
-            weatherDesc + " in " + city;
-          tempEl.innerHTML = "h: " + hiTemp + "° / c: " + temp + "° / l: " + loTemp + "°";
-        }
+    // anime.js animation function
+    function playAnimation() {
+      var tl = anime.timeline({
+        easing: "easeInOutExpo",
+        duration: 2000,
       });
-    } else {
-      weatherEl.innerText = "";
-      tempEl.innerText = "";
+
+      tl.add({
+        targets: "#img",
+        opacity: [0, 1],
+        translateY: [100, 0],
+      })
+        .add(
+          {
+            targets: "#img",
+            width: ["100%", "60%"],
+          },
+          "-=1200"
+        )
+        .add(
+          {
+            targets: "main *",
+            opacity: [0, 1],
+            translateY: [10, 0],
+            delay: anime.stagger(15),
+          },
+          "-=1800"
+        );
     }
 
-
-
-    if (animated) {
-      // hides all elements
-      document.querySelectorAll("*").forEach(el => el.style.opacity = 0);
-
-      // anime.js animation function
-      function playAnimation() {
-        var tl = anime.timeline({
-          easing: "easeInOutExpo",
-          duration: 2000,
-        });
-
-        tl.add({
-          targets: "#img",
-          opacity: [0, 1],
-          translateY: [100, 0],
-        })
-          .add(
-            {
-              targets: "#img",
-              width: ["100%", "60%"],
-            },
-            "-=1200"
-          )
-          .add(
-            {
-              targets: "main *",
-              opacity: [0, 1],
-              translateY: [10, 0],
-              delay: anime.stagger(15),
-            },
-            "-=1800"
-          );
-      }
-
-      window.onload = function () {
-        document.querySelectorAll("*").forEach(el => el.style.opacity = 1);
-        playAnimation();
-      }
+    window.onload = function () {
+      document.querySelectorAll("*").forEach(el => el.style.opacity = 1);
+      playAnimation();
     }
   </script>
 </body>
